@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="9e09d7f590c44bcbb3c6580679cc8294" Name="Diagram1">
+        <EntityTypeShape EntityType="AsociacionModel.Categorias" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.DetallesOrdenes" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.FormasEnvio" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.FormasPago" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.Ordenes" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.OrdenesNoConcretadas" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.Productos" Width="1.5" PointX="3" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.Roles" Width="1.5" PointX="3.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.Roles_Usuarios" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.Usuarios" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="AsociacionModel.FK_Productos_Categorias" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_Ordenes_DetallesOrdenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_Productos_DetallesOrdenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_FormasEnvio_Ordenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_FormasPago_Ordenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_OrdenesNoConcretadas_Ordenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_Usuarios_Ordenes" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_Roles_Roles_Usuarios" ManuallyRouted="false" />
+        <AssociationConnector Association="AsociacionModel.FK_Usuario_Roles_Usuarios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
