@@ -1,7 +1,7 @@
 # ProyectoIS
 Proyecto de ingeniería de software
 
-##Modelo
+## Modelo
 Esta la conexión con la base de datos
 para actualizar el modelo cambiar la cadena de conexión en el archivo App.config
 
