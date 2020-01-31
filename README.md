@@ -13,4 +13,7 @@ para actualizar el modelo cambiar la cadena de conexión en el archivo App.confi
 Se puede cambiar el nombre del servidor\instancia, usuario y contraseña
 
 
+## login
+Usuario:admin/12345
+
 
