@@ -1,10 +1,9 @@
 ﻿@using Modelo;
-@using Negocio;
 @model Productos
 
 @{
     ViewBag.Title = "Index";
-
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <meta charset="UTF-8">
 <link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
@@ -22,7 +21,7 @@
         <div class="wrapper wrapper--w680">
             <div class="card card-4">
                 <div class="card-body">
-                    <center><h2 class="title">Registrar Usuarios</h2></center>
+                    <center><h2 class="title">Registrar Productos</h2></center>
                     @using (Html.BeginForm("guardarProducto", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
                     {
                         <div class="row row-space">
@@ -110,5 +109,10 @@
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
     }
+    var tempData = "@Html.ViewData["mensaje"]";
+    if (tempData != "") {
+        swal(tempData);
+    }
+    
 </script>
 

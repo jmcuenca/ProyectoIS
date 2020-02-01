@@ -19,10 +19,18 @@ namespace Negocio
             var datos = entidad.Roles_Usuarios.Where(x => x.IdUsuario == roles_Usuarios.IdUsuario);
             if (datos.Count()< 2)
             {
-                if(datos.Where(x => x.IdUsuario == roles_Usuarios.IdUsuario && x.IdRol == roles_Usuarios.IdRol).Count()<1)
-                entidad.Roles_Usuarios.Add(roles_Usuarios);
-                entidad.SaveChanges();
-                mensaje = "insertado con exito";
+                if (datos.Where(x => x.IdUsuario == roles_Usuarios.IdUsuario && x.IdRol == roles_Usuarios.IdRol).Count() < 1)
+                {
+                    entidad.Roles_Usuarios.Add(roles_Usuarios);
+                    entidad.SaveChanges();
+                    mensaje = "insertado con exito";
+                }
+                else 
+                {
+                    mensaje = "ya existe el rol para el usuario";
+
+                }
+                
             }
             else 
             {
