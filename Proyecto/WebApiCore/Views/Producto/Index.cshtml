@@ -1,0 +1,114 @@
+﻿@using Modelo;
+@using Negocio;
+@model Productos
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<meta charset="UTF-8">
+<link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- Vendor CSS-->
+<link href="~/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+<!-- Main CSS-->
+<link href="~/css/main.css" rel="stylesheet" media="all">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-30 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <center><h2 class="title">Registrar Usuarios</h2></center>
+                    @using (Html.BeginForm("guardarProducto", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Nombre de producto</label>
+                                    @Html.TextBoxFor(x => x.NombreProducto,
+                                    new { @class = "input--style-4", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Precio</label>
+                                    @Html.TextBoxFor(x => x.Precio,
+                                    new { @class = "input--style-4", type = "number", step = ".01", pattern=@"([0-9])+[.]([0-9][0-9])",ErrorMessage = "Please only enter letters", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Stock</label>
+                                    @Html.TextBoxFor(x => x.Stock,
+     new { @class = "input--style-4", required = "required", type = "number", onkeypress = "return validaNumericos(event)" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Peso en KG</label>
+                                    @Html.TextBoxFor(x => x.Peso,
+                                    new { @class = "input--style-4", type = "number", step = ".01", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Imagen</label>
+                                    <input type="file" accept="image/*" onchange="loadFile(event)" class="input--style-4" name="file" id="file">
+                                    
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <label class="label">Categoria</label>
+                                        @Html.DropDownListFor(m => m.IdCategoria,
+                                    new SelectList((System.Collections.IEnumerable)ViewData["listarCategorias"], "IdCategoria", "NombreCategoria"), new { @class = "input--style-4", @style = "width:210px ; height:45px " })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <center><img id="output" style="width:300px; height:200px; border-color:rebeccapurple" /></center>
+                            
+                        </div>
+                        <div class="row row-space">
+                                <div class="input-group">
+                                    <br />
+                                    <center><button class="btn btn--radius-2 btn--blue" type="submit">Guardar</button></center>
+                                </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+</body>
+<script>
+    function validaNumericos(event) {
+    if(event.charCode >= 48 && event.charCode <= 57){
+      return true;
+    }
+        return false; 
+    }
+    function loadFile(event) {
+    var output = document.getElementById('output');
+    output.src = URL.createObjectURL(event.target.files[0]);
+    }
+</script>
+

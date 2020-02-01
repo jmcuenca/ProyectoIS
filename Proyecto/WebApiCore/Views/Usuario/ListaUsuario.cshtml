@@ -1,0 +1,44 @@
+﻿@using Modelo;
+@model Usuarios
+
+
+<div class="col-lg-6">
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th scope="col">IdUsuario</th>
+                <th scope="col">IdRoles </th>
+                <th scope="col">Carrera</th>
+                <th scope="col">Modalidad</th>
+                <th scope="col">Nivel</th>
+                <th scope="col">Periodo</th>
+                <th scope="col">Tema</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Rol</th>
+                <th scope="col">Accion</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var i in ViewData["listarUsuarios"] as IList<Usuarios>)
+            {
+                foreach (var j in i.Roles_Usuarios.Where(x => x.IdUsuario == i.IdUsuario)) {
+            <tr>
+                <th scope="row">@i.IdUsuario</th>
+                <th scope="row">@j.IdRol_Usuario</th>
+                <td>@i.NombreUsuario</td>
+                <td>@i.ApellidoUsuario</td>
+                <td>@i.Cedula</td>
+                <td>@i.Telefono</td>
+                <td>@i.Provincia</td>
+                <td>@i.Ciudad</td>
+                <td>@j.Roles.NombreRol</td>
+                <td><a href="@Url.Action("eliminarUsuario","Usuario",new { txtIdUSuario = i.IdUsuario, txtIdRol=j.IdRol_Usuario })">Eliminar</a></td>
+                
+            </tr>
+                }
+                
+            }
+        </tbody>
+    </table>
+</div>

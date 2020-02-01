@@ -1,0 +1,178 @@
+﻿@using Modelo;
+@using Negocio;
+@model Usuarios
+
+@{
+    ViewBag.Title = "Index";
+
+}
+<meta charset="UTF-8">
+<link href="~/vendor/mdi-font/css/material-design-iconic-font.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/font-awesome-4.7/css/font-awesome.min.css" rel="stylesheet" media="all">
+<!-- Font special for pages-->
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+<!-- Vendor CSS-->
+<link href="~/vendor/select2/select2.min.css" rel="stylesheet" media="all">
+<link href="~/vendor/datepicker/daterangepicker.css" rel="stylesheet" media="all">
+<!-- Main CSS-->
+<link href="~/css/main.css" rel="stylesheet" media="all">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<body>
+    <div class="page-wrapper bg-gra-02 p-t-30 p-b-100 font-poppins">
+        <div class="wrapper wrapper--w680">
+            <div class="card card-4">
+                <div class="card-body">
+                    <center><h2 class="title">Registrar Usuarios</h2></center>
+                    <form class="panel-body" method="post" action="/Usuario/guardarUsuario">
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Cédula</label>
+                                    @Html.TextBoxFor(x => x.Cedula,
+                                    new { @class = "input--style-4", @onblur = "ingresarCedula(this.value)", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Apellido</label>
+                                    @Html.TextBoxFor(x => x.ApellidoUsuario,
+                                    new { @class = "input--style-4", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Nombre</label>
+                                    @Html.TextBoxFor(x => x.NombreUsuario,
+                                    new { @class = "input--style-4", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Teléfono</label>
+                                    @Html.TextBoxFor(x => x.Telefono,
+                                    new { @class = "input--style-4", required = "required" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Empresa</label>
+                                    @Html.TextBoxFor(x => x.Empresa,
+                                    new { @class = "input--style-4", required = "required" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <div class="rs-select2 js-select-simple select--no-search">
+                                        <label class="label">Dirección</label>
+                                        @Html.TextBoxFor(x => x.Direccion,
+                                        new { @class = "input--style-4", required = "required" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Ciudad</label>
+                                    @Html.TextBoxFor(x => x.Ciudad,
+                                    new { @class = "input--style-4" })
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Provincia</label>
+                                    @Html.DropDownListFor(m => m.Provincia,
+                                       new List<SelectListItem>
+                                       { new SelectListItem{Text="PICHINCHA"},
+                                         new SelectListItem{Text="GUAYAS"},
+                                         new SelectListItem{Text="CUENCA"},
+                                         new SelectListItem{Text="TUNGURAHUA"},
+                                       }
+                                       , new { @class = "input--style-4", @style = "width:220px ; height:45px " })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-space">
+                            <div class="col-2">
+                                <div class="input-group">
+                                    <label class="label">Roles</label>
+                                    @Html.DropDownListFor(m => m.Roles_Usuarios,
+                                    new SelectList((System.Collections.IEnumerable)ViewData["listarRoles"], "IdRol", "NombreRol"), new { @class = "input--style-4", @style = "width:210px ; height:45px " })
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="input-group">
+                                    <label class="label">Accion</label>
+                                    <center><button class="btn btn--radius-2 btn--blue" type="submit">Guardar</button></center>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Jquery JS-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Vendor JS-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <script src="vendor/datepicker/moment.min.js"></script>
+    <script src="vendor/datepicker/daterangepicker.js"></script>
+    <!-- Main JS-->
+    <script src="js/global.js"></script>
+</body>
+
+<script>
+    function ingresarCedula(cedula) {
+        var valor = validar(cedula);
+        if (valor != 1) {
+            swal("Cedula Invalida");
+            cedula = "";
+        } else {
+            swal("Cedula Válida");
+        }
+        var url = '@Url.Action("ListarUsuarioId", "Usuario", new { cedula = "__id__" })';
+        var urls = url.replace('__id__', cedula);
+
+        setTimeout(function () {
+            window.location.href =urls;
+        }, 1000);
+        
+    }
+    function validar(numero) {
+        var cad = numero;
+        var total = 0;
+        var longitud = cad.length;
+        var longcheck = longitud - 1;
+
+        if (cad !== "" && longitud === 10){
+          for(i = 0; i < longcheck; i++){
+            if (i%2 === 0) {
+              var aux = cad.charAt(i) * 2;
+              if (aux > 9) aux -= 9;
+              total += aux;
+            } else {
+              total += parseInt(cad.charAt(i)); // parseInt o concatenará en lugar de sumar
+            }
+          }
+
+          total = total % 10 ? 10 - total % 10 : 0;
+
+          if (cad.charAt(longitud-1) == total) {
+              return 1;
+          }else{
+              return 0;
+          }
+        }
+    }
+
+    var tempData = "@Html.ViewData["mensaje"]";
+    if (tempData != "") {
+        swal(tempData);
+    }
+    
+</script>

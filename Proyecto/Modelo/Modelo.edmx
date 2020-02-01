@@ -43,7 +43,7 @@
             <PropertyRef Name="IdOrden" />
           </Key>
           <Property Name="IdOrden" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdUsuario" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="IdEnvio" Type="int" Nullable="false" />
           <Property Name="IdPago" Type="int" Nullable="false" />
           <Property Name="IdNoConcretadas" Type="int" Nullable="false" />
@@ -83,14 +83,14 @@
             <PropertyRef Name="IdRol_Usuario" />
           </Key>
           <Property Name="IdRol_Usuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdUsuario" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
           <Property Name="IdRol" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="nchar" MaxLength="5" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NombreUsuario" Type="nvarchar" MaxLength="40" Nullable="false" />
           <Property Name="ApellidoUsuario" Type="nvarchar" MaxLength="30" />
           <Property Name="Cedula" Type="nvarchar" MaxLength="13" Nullable="false" />
@@ -304,7 +304,7 @@
             <PropertyRef Name="IdOrden" />
           </Key>
           <Property Name="IdOrden" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="IdEnvio" Type="Int32" Nullable="false" />
           <Property Name="IdPago" Type="Int32" Nullable="false" />
           <Property Name="IdNoConcretadas" Type="Int32" Nullable="false" />
@@ -353,7 +353,7 @@
             <PropertyRef Name="IdRol_Usuario" />
           </Key>
           <Property Name="IdRol_Usuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdUsuario" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
           <Property Name="IdRol" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Roles_Roles_Usuarios" FromRole="Roles_Usuarios" ToRole="Roles" />
           <NavigationProperty Name="Usuarios" Relationship="Self.FK_Usuario_Roles_Usuarios" FromRole="Roles_Usuarios" ToRole="Usuarios" />
@@ -362,7 +362,7 @@
           <Key>
             <PropertyRef Name="IdUsuario" />
           </Key>
-          <Property Name="IdUsuario" Type="String" MaxLength="5" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NombreUsuario" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ApellidoUsuario" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Cedula" Type="String" MaxLength="13" FixedLength="false" Unicode="true" Nullable="false" />

@@ -21,7 +21,7 @@ namespace Modelo
         }
     
         public int IdOrden { get; set; }
-        public string IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
         public int IdEnvio { get; set; }
         public int IdPago { get; set; }
         public int IdNoConcretadas { get; set; }

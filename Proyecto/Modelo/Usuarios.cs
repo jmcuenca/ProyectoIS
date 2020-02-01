@@ -21,7 +21,7 @@ namespace Modelo
             this.Roles_Usuarios = new HashSet<Roles_Usuarios>();
         }
     
-        public string IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
         public string NombreUsuario { get; set; }
         public string ApellidoUsuario { get; set; }
         public string Cedula { get; set; }

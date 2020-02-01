@@ -15,7 +15,7 @@ namespace Modelo
     public partial class Roles_Usuarios
     {
         public int IdRol_Usuario { get; set; }
-        public string IdUsuario { get; set; }
+        public int IdUsuario { get; set; }
         public int IdRol { get; set; }
     
         public virtual Roles Roles { get; set; }
