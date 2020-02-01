@@ -69,9 +69,9 @@ namespace Negocio
         public List<Productos> listarProductos() {
             return entidad.Productos.ToList();
         }
-        public List<Productos> listarProductosId(int id)
+        public Productos listarProductosId(int id)
         {
-            return entidad.Productos.Where(cod=>cod.IdProducto==id).ToList();
+            return entidad.Productos.Where(cod=>cod.IdProducto==id).SingleOrDefault();
         }
     }
 }

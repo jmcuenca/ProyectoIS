@@ -12,49 +12,79 @@ namespace WebApiCore.Controllers
 {
     public class ProductoController : Controller
     {
-        // GET: Producto
-        public ActionResult Index()
+        public ActionResult Index(Productos productos, string mensaje)
         {
             ClassCategoria classCategoria = new ClassCategoria();
             ViewData["listarCategorias"] = classCategoria.listarCategorias();
-            return View();
+            ViewData["mensaje"] = mensaje;
+            return View(productos);
         }
         public ActionResult guardarProducto(HttpPostedFileBase file) 
         {
+            var msg = "";
+
             ClassProducto classProducto = new ClassProducto();
             Productos productos = new Productos();
-            if (file != null)
+
+            CultureInfo provider = new CultureInfo("en-US");
+            NumberStyles style = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
+
+            try
             {
-                string path = Server.MapPath("~/Uploads/");
-                if (!Directory.Exists(path))
+                productos.NombreProducto = Request.Form["NombreProducto"].ToString();
+                productos.IdCategoria = Convert.ToInt32(Request.Form["IdCategoria"]);
+                productos.Precio = Decimal.Parse(Request.Form["Precio"].ToString(), style, provider);
+                productos.Stock = Convert.ToInt16(Request.Form["Stock"].ToString());
+                productos.Peso = Double.Parse(Request.Form["Peso"], style, provider);
+
+                if (file != null)
                 {
-                    Directory.CreateDirectory(path);
+                    string path = Server.MapPath("~/Uploads/");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+
+                    file.SaveAs(path + Path.GetFileName(file.FileName));
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        productos.Imagen = ms.GetBuffer();
+                    }
+                    Productos p = new Productos();
+                    msg = classProducto.crudProduct(productos, "I");
+                    return RedirectToAction("listarProducto", "Producto", new { producto = p, mensaje = msg });
                 }
-
-                file.SaveAs(path + Path.GetFileName(file.FileName));
-
-                using (MemoryStream ms = new MemoryStream()) 
+                else
                 {
-                    CultureInfo provider = new CultureInfo("en-US");
-                    NumberStyles style= NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands;
-
-                    file.InputStream.CopyTo(ms);
-                    productos.Imagen = ms.GetBuffer();
-                    productos.NombreProducto = Request.Form["NombreProducto"].ToString();
-                    productos.IdCategoria = Convert.ToInt32( Request.Form["IdCategoria"]);
-                    productos.Precio = Decimal.Parse(Request.Form["Precio"].ToString(), style, provider);
-                    productos.Stock = Convert.ToInt16(Request.Form["Stock"].ToString());
-                    productos.Peso =  Double.Parse(Request.Form["Peso"],style,provider);
-                    classProducto.crudProduct(productos, "I");
+                    Productos productos1 = productos;
+                    msg = "Por favor elija una foto para continuar";
+                    return RedirectToAction("Index", "Producto", new { productos = productos1, mensaje = msg });
                 }
             }
+            catch (Exception)
+            {
+                Productos p2 = new Productos();
+                msg = "Ocurrio un error vuelve a intentarlo";
+                return RedirectToAction("Index", "Producto", new { producto = p2, mensaje = msg });
+            }
+            
             /** 
             Transforma a base 64 lo cual permite decodificar la imagen
             var datos =Convert.ToBase64String(ms.GetBuffer());
             */
-            
-            
-            return null;
+        }
+        public ActionResult listarProducto() {
+            ClassProducto producto = new ClassProducto();
+            ViewData["listarProducto"] = producto.listarProductos();
+            return View();
+        }
+        public JsonResult listarId(int id) 
+        {
+            ClassProducto classProducto = new ClassProducto();
+            Productos pro = classProducto.listarProductosId(id);
+            return Json(pro,JsonRequestBehavior.AllowGet);
         }
     }
 }
