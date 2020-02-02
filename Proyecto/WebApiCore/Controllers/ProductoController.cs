@@ -52,6 +52,7 @@ namespace WebApiCore.Controllers
                         file.InputStream.CopyTo(ms);
                         productos.Imagen = ms.GetBuffer();
                     }
+
                     Productos p = new Productos();
                     msg = classProducto.crudProduct(productos, "I");
                     return RedirectToAction("listarProducto", "Producto", new { producto = p, mensaje = msg });
