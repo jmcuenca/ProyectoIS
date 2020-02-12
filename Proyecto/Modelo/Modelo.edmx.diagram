@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="eaffb8690e594b01a4ff9a2804809d65" Name="Diagram1">
         <EntityTypeShape EntityType="AsociacionModel.Categorias" Width="1.5" PointX="0.75" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="AsociacionModel.DetallesOrdenes" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AsociacionModel.DetallesOrdenes" Width="1.5" PointX="4.5" PointY="0.625" IsExpanded="true" />
         <EntityTypeShape EntityType="AsociacionModel.FormasEnvio" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="AsociacionModel.FormasPago" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
         <EntityTypeShape EntityType="AsociacionModel.Ordenes" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />

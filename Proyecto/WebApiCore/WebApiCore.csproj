@@ -18,7 +18,7 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress />
+    <Use64BitIISExpress>true</Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -158,6 +158,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoriaProductoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NavbarController.cs" />
     <Compile Include="Controllers\ProductoController.cs" />
@@ -2580,9 +2581,11 @@
     <Content Include="vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff" />
     <Content Include="vendor\mdi-font\fonts\Material-Design-Iconic-Font.woff2" />
     <Content Include="Views\Producto\listarProducto.cshtml" />
+    <Content Include="Views\ViewProductoCategoria.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\CategoriaProducto\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -2618,6 +2621,8 @@
           <DevelopmentServerPort>49977</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:49977/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:49977/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
