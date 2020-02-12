@@ -14,5 +14,10 @@ namespace Negocio.Producto
         {            
             return contexto.Productos.Include("Categorias").ToList();
         }
+        public List<Productos> listarProductos()
+        {
+            return contexto.Productos.Include("Categorias").ToList();
+        }
+
     }
 }
