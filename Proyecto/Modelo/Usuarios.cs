@@ -30,6 +30,7 @@ namespace Modelo
         public string Ciudad { get; set; }
         public string Provincia { get; set; }
         public string Telefono { get; set; }
+        public byte[] PasswordUsuario { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ordenes> Ordenes { get; set; }

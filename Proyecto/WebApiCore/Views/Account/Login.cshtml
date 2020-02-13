@@ -31,10 +31,10 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
-        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Usuario" })
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = "Ingrese su Cédula" })
             @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
         <br />
-         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Contraseña" })
+         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Ingrese su contraseña " })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         <br />
         

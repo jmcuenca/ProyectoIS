@@ -12,12 +12,16 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity.Owin;
 using System.Net.Http;
 using Microsoft.Owin.Host.SystemWeb;
+using WebApiCore.ConnectionClass;
+
 namespace WebApiCore.Controllers
 {
     public class AccountController : Controller
     {
 
-        
+        // conexion con base de datos
+        ClassConnection con = new ClassConnection();
+
         IAuthenticationManager Authentication
         {
 
@@ -43,25 +47,38 @@ namespace WebApiCore.Controllers
             {
                 return View(model);
             }
-            var data = new Data();
-            var users = data.users();
 
-            if (users.Any(p => p.user == model.UserName && p.password == model.Password))
+            if (model.UserName.Trim() != "" || model.Password.Trim() != "")
             {
-                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, model.UserName), }, DefaultAuthenticationTypes.ApplicationCookie);
-
-                Authentication.SignIn(new AuthenticationProperties
+                con.Conectar();
+                int result = con.loginUser("select dbo.loginUser('" + model.UserName.Trim() + "','" + model.Password.Trim() + "')");
+                if (result != -1)
                 {
-                    IsPersistent = model.RememberMe
-                }, identity);
-
-                return RedirectToAction("Index", "Home");
+                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.Name, "admin"/*model.UserName*/), }, DefaultAuthenticationTypes.ApplicationCookie);
+                    Authentication.SignIn(new AuthenticationProperties
+                    {
+                        IsPersistent = model.RememberMe
+                    }, identity);
+                    con.Desconectar();
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    con.Desconectar();
+                    Messagebox("Usuario o contraseña inválidas.");
+                    return View(model);
+                    
+                }
+                
             }
             else
             {
-                ModelState.AddModelError("", "Invalid login attempt.");
+                Messagebox("Ingrese todos los campos.");
                 return View(model);
+
             }
+
         }
 
         //
@@ -72,6 +89,11 @@ namespace WebApiCore.Controllers
         {
             Authentication.SignOut();
             return RedirectToAction("Login", "Account");
+        }
+
+        private void Messagebox(string message)
+        {
+            Response.Write("<script>alert('" + message + "')</script>");
         }
 
     }

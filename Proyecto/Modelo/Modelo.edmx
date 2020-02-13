@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="AsociacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="AsociacionModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Categorias">
           <Key>
             <PropertyRef Name="IdCategoria" />
@@ -99,6 +99,7 @@
           <Property Name="Ciudad" Type="nvarchar" MaxLength="15" />
           <Property Name="Provincia" Type="nvarchar" MaxLength="15" />
           <Property Name="Telefono" Type="nvarchar" MaxLength="24" />
+          <Property Name="PasswordUsuario" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_FormasEnvio_Ordenes">
           <End Role="FormasEnvio" Type="Self.FormasEnvio" Multiplicity="1" />
@@ -208,6 +209,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="LoginUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="Cedula" Type="varchar" Mode="In" />
+          <Parameter Name="Password" Type="varchar" Mode="In" />
+        </Function>
         <EntityContainer Name="AsociacionModelStoreContainer">
           <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetallesOrdenes" EntityType="Self.DetallesOrdenes" Schema="dbo" store:Type="Tables" />
@@ -256,8 +261,7 @@
             <End Role="Ordenes" EntitySet="Ordenes" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="AsociacionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -373,6 +377,7 @@
           <Property Name="Telefono" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Ordenes" Relationship="Self.FK_Usuarios_Ordenes" FromRole="Usuarios" ToRole="Ordenes" />
           <NavigationProperty Name="Roles_Usuarios" Relationship="Self.FK_Usuario_Roles_Usuarios" FromRole="Usuarios" ToRole="Roles_Usuarios" />
+          <Property Name="PasswordUsuario" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Productos_Categorias">
           <End Role="Categorias" Type="Self.Categorias" Multiplicity="1" />
@@ -629,6 +634,7 @@
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="AsociacionModel.Usuarios">
               <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="PasswordUsuario" ColumnName="PasswordUsuario" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
                 <ScalarProperty Name="NombreUsuario" ColumnName="NombreUsuario" />
                 <ScalarProperty Name="ApellidoUsuario" ColumnName="ApellidoUsuario" />
